@@ -44,7 +44,15 @@ app.put('/api/genres/:id', (req, res) => {
     res.send(genre);
 });
 
+app.delete('/api/genres/:id', (req, res) => {
+    const genre = genres.find(g => g.id === parseInt(req.params.id));
+    if (!genre) return res.status(404).send('The Genre with the given ID is not found');
 
+    const genreIndex = genres.indexOf(genre);
+    genres.splice(genreIndex, 1);
+
+    res.send(genre);
+});
 
 function validateGenre(genre)
 {
