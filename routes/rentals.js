@@ -3,6 +3,10 @@ const router = express.Router();
 const { Rental, validate } = require('../models/rental');
 const { Customer } = require('../models/customer');
 const { Movie } = require('../models/movie');
+const mongoose = require('mongoose');
+const Fawn = require('fawn');
+
+Fawn.init(mongoose);
 
 function createRentalFromMovieAndCustomer(movie, customer) {
   var rental = new Rental({
@@ -37,12 +41,19 @@ router.post('/', async (req, res) => {
   if (!movie) return res.status(404).send('Invalid Movie.');
 
   let rental = createRentalFromMovieAndCustomer(movie, customer);
-  rental = await rental.save();
+  
+  try {
+    new Fawn.Task()
+      .save('rentals', rental)
+      .update('movies', { _id: movie._id }, {
+        $inc: { numberInStock: -1 }
+      })
+      .run();
 
-  movie.numberInStock--;
-  movie.save();
-
-  res.send(rental);
+    res.send(rental);
+  } catch (ex) {
+    res.status(500).send('Something faild.');
+  }
 });
 
 module.exports = router;
