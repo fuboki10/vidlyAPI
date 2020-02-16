@@ -6,7 +6,7 @@ const movieSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    minlength: 5,
+    minlength: 1,
     maxlength: 50
   },
   genre: {
@@ -33,9 +33,9 @@ const movieSchema = new mongoose.Schema({
 
 const Movie = mongoose.model('Movie', movieSchema);
 
-function validateMovie(movie) {
+function validate(movie) {
   const schema = {
-    title: Joi.string().min(5).max(50).required(),
+    title: Joi.string().min(1).max(50).required(),
     genreId: Joi.string().required(),
     numberInStock: Joi.number().min(0).max(255).required(),
     dailyRentalRate: Joi.number().min(0).max(255).required()
@@ -45,4 +45,4 @@ function validateMovie(movie) {
 };
 
 exports.Movie = Movie;
-exports.validateMovie = validateMovie;
+exports.validate = validate;
