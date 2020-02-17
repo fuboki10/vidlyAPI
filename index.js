@@ -16,6 +16,7 @@ const users = require('./routes/users');
 
 // App Middleware Functions
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use('/api/genres', genres);
 app.use('/api/customers', customers);
 app.use('/api/movies', movies);
