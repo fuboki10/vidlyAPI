@@ -1,6 +1,12 @@
+const config = require('config');
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+
+if (!config.get('jwtPrivateKey')) {
+    console.error('FATAL ERROR: jwtPrivateKey is not defined.');
+    process.exit(1);
+}
 
 // Connect to db
 mongoose.connect('mongodb://localhost/vidly')
