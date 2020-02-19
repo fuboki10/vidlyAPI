@@ -9,7 +9,7 @@ if (!config.get('jwtPrivateKey')) {
 }
 
 // Connect to db
-mongoose.connect('mongodb://localhost/vidly')
+mongoose.connect('mongodb://localhost/vidly', { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => console.log('Connected to db...'))
     .catch((err) => console.error('Error : ', err.message));
 

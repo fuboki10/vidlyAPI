@@ -3,6 +3,8 @@ const router = express.Router();
 const { User, validate } = require('../models/user');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 
 async function isEmailExisted(email) {
   let user = await User.findOne({ email: email });
@@ -27,7 +29,8 @@ router.post('/', async (req, res) => {
 
   await user.save();
 
-  res.send(_.pick(user, ['_id', 'username', 'email']));
+  const token = user.generateAuthToken();
+  res.header('x-auth-token', token).send(_.pick(user, ['_id', 'username', 'email']));
 });
 
 module.exports = router;
