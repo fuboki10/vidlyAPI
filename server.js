@@ -8,8 +8,14 @@ if (!config.get('jwtPrivateKey')) {
     process.exit(1);
 }
 
+// To Fix mongoose deprecation warnings
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
+
 // Connect to db
-mongoose.connect('mongodb://localhost/vidly', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost/vidly')
     .then((result) => console.log('Connected to db...'))
     .catch((err) => console.error('Error : ', err.message));
 
