@@ -5,6 +5,7 @@ const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
 
 router.get('/', async (req, res) => {
+    throw new Error('looooooool');
     const genres = await Genre.find();
     res.send(genres);
 });
