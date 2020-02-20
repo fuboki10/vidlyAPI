@@ -25,7 +25,8 @@ module.exports = function () {
       format.label(),
       format.json(),
       myFormat
-    )
+    ),
+    level: 'info'
   }));
   winston.add(new winston.transports.MongoDB({ 
     db: config.get('db'),

@@ -11,6 +11,6 @@ module.exports = function () {
 
   // Connect to db
   mongoose.connect(config.get('db'))
-    .then((result) => winston.info('Connected to db...'))
-    .catch((err) => console.log('aaaaaaaaaaaaaaaaaaa'));
+    .then(() => winston.info('Connected to db...'))
+    .catch(() => winston.error('Cannot Connect to db!'));
 }
