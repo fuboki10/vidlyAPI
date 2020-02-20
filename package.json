@@ -26,6 +26,7 @@
     "winston-mongodb": "^5.0.1"
   },
   "devDependencies": {
+    "jsdoc": "^3.6.3",
     "nodemon": "2.0.2"
   }
 }
