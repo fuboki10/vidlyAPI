@@ -1,10 +1,11 @@
 const winston = require('winston');
+const { format } = winston;
 const config = require('config');
 require('winston-mongodb');
 
 module.exports = function () {
   winston.exitOnError = false;
-  const myFormat = winston.format.printf(({level, message, timestamp}) => {
+  const myFormat = format.printf(({level, message, timestamp}) => {
     return `${timestamp} ${level}: ${message}`;
   })
   winston.exceptions.handle(
@@ -17,14 +18,14 @@ module.exports = function () {
     level: 'error'
   }));
   winston.add(new winston.transports.Console({
-    format: winston.format.combine(
-      winston.format.colorize(),
-      winston.format.prettyPrint(),
-      winston.format.timestamp(),
-      winston.format.label(),
+    format: format.combine(
+      format.colorize(),
+      format.prettyPrint(),
+      format.timestamp({format: 'YYYY-MM-DD HH:mm:ss'}),
+      format.label(),
+      format.json(),
       myFormat
-    ),
-    level: 'info'
+    )
   }));
   winston.add(new winston.transports.MongoDB({ 
     db: config.get('db'),
