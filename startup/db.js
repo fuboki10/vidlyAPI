@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const config = require('config');
 const winston = require('winston');
 
 module.exports = function () {
@@ -10,7 +9,8 @@ module.exports = function () {
   mongoose.set('useUnifiedTopology', true);
 
   // Connect to db
-  mongoose.connect(config.get('db'))
+  winston.info(process.env.vidly_db);
+  mongoose.connect(process.env.vidly_db)
     .then(() => winston.info('Connected to db...'))
-    .catch(() => winston.error('Cannot Connect to db!'));
+    .catch((err) => winston.error('Cannot Connect to db! ', err));
 }

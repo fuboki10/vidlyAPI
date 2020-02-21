@@ -1,6 +1,5 @@
 const winston = require('winston');
 const { format } = winston;
-const config = require('config');
 require('winston-mongodb');
 
 module.exports = function () {
@@ -29,7 +28,7 @@ module.exports = function () {
     level: 'info'
   }));
   winston.add(new winston.transports.MongoDB({ 
-    db: config.get('db'),
+    db: process.env.vidly_db,
     level: 'error',
     options: { useUnifiedTopology: true }
   }));
