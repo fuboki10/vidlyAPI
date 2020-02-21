@@ -6,8 +6,10 @@ const rentals = require('../routes/rentals');
 const users = require('../routes/users');
 const auth = require('../routes/auth');
 const errorHandler = require('../middleware/errorHandler');
+const morgan = require('morgan');
 
 module.exports = function (app) {
+  app.use(morgan('dev'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use('/api/genres', genres);

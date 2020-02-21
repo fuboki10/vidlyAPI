@@ -2,6 +2,12 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 
 // Create Customer Model
+/**
+ * @public
+ * @param {name} name string
+ * @param {isGold} isGold Boolean
+ * @param {phone} phone string
+ */
 const Customer = mongoose.model('Customer', new mongoose.Schema({
   name: {
     type: String,
