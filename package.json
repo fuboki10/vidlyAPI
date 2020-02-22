@@ -2,11 +2,11 @@
   "name": "vidly",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "./src/server.js",
   "scripts": {
     "test": "jest --watchAll",
-    "start": "env-cmd nodemon server.js",
-    "dev": "cross_env NODE_ENV=development nodemon server.js"
+    "start": "env-cmd nodemon ./src/server.js",
+    "dev": "cross_env NODE_ENV=development nodemon ./src/server.js"
   },
   "keywords": [],
   "author": "",
