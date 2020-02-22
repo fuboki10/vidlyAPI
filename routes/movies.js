@@ -4,9 +4,15 @@ const { Movie , validate } = require('../models/movie');
 const { Genre } = require('../models/genre');
 
 router.get('/', async (req, res) => {
-  const movies = await Movie.find()
+  const title = req.query.q || '';
+  const limit = parseInt(req.query.limit) || 10;
+  const page = parseInt(req.query.page) || 0;
+
+  const movies = await Movie.find({title: {$regex: title, $options: 'i'}})
     .sort('title')
     .select('-genre.__v -genre._id -__v')
+    .skip(page * limit)
+    .limit(limit)
     ;
 
   res.send(movies);

@@ -12,9 +12,9 @@ const admin = require('../middleware/admin');
  */
 router.get('/', async (req, res) => {
     const name = req.query.q || '';
-    const limit = req.query.limit || 10;
-    const page = req.query.page || 0;
-    
+    const limit = parseInt(req.query.limit) || 10;
+    const page = parseInt(req.query.page) || 0;
+
     const genres = await Genre
         .find({ name: {$regex: name, $options : 'i'} })
         .limit(limit)

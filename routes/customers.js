@@ -4,7 +4,16 @@ const { Customer, validate } = require('../models/customer');
 
 // API Functions
 router.get('/', async (req, res) => {
-  const customers = await Customer.find();
+  const name = req.query.q || '';
+  const limit = parseInt(req.query.limit) || 10;
+  const page = parseInt(req.query.page) || 0;
+
+  const customers = await Customer.find({ name: {$regex: name, $options: 'i'} })
+    .sort('name')
+    .limit(limit)
+    .skip(page * limit)
+    ;
+    
   res.send(customers);
 });
 
