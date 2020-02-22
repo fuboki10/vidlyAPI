@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const winston = require('winston');
+const config = require('config');
 
 module.exports = function () {
   // To Fix mongoose deprecation warnings
@@ -9,8 +10,9 @@ module.exports = function () {
   mongoose.set('useUnifiedTopology', true);
 
   // Connect to db
-  winston.info(process.env.vidly_db);
-  mongoose.connect(process.env.vidly_db)
+  const db = config.get('db');
+  winston.info(db);
+  mongoose.connect(db)
     .then(() => winston.info('Connected to db...'))
     .catch((err) => winston.error('Cannot Connect to db! ', err));
 }

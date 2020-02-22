@@ -1,6 +1,6 @@
 const winston = require('winston');
 const { format } = winston;
-require('winston-mongodb');
+// require('winston-mongodb');
 
 module.exports = function () {
   winston.exitOnError = false;
@@ -27,11 +27,11 @@ module.exports = function () {
     ),
     level: 'info'
   }));
-  winston.add(new winston.transports.MongoDB({ 
+  /*winston.add(new winston.transports.MongoDB({ 
     db: process.env.vidly_db,
     level: 'error',
     options: { useUnifiedTopology: true }
-  }));
+  }));*/
   process.on('unhandledRejection', (ex) => {
     throw ex;
   });
