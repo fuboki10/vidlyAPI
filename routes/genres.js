@@ -11,7 +11,16 @@ const admin = require('../middleware/admin');
  * @param {res} Response
  */
 router.get('/', async (req, res) => {
-    const genres = await Genre.find();
+    const name = req.query.q || '';
+    const limit = req.query.limit || 10;
+    const page = req.query.page || 0;
+    
+    const genres = await Genre
+        .find({ name: {$regex: name, $options : 'i'} })
+        .limit(limit)
+        .skip(page * limit)
+        ;
+    
     res.send(genres);
 });
 
