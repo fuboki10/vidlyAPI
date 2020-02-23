@@ -20,7 +20,7 @@ const Customer = mongoose.model('Customer', new mongoose.Schema({
     default: false
   },
   phone: {
-    type: String, 
+    type: String,
     required: true,
     minlength: 5,
     maxlength: 20
