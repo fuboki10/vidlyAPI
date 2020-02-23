@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
 const genreController = require('../controllers/genre.controller');
+const validateObjectId = require('../middleware/validateObjectId');
 
 /**
  * @public
@@ -19,12 +20,26 @@ router.get('/', genreController.getGenres);
  * @param {res} Response
  * @param {id} genreId
  */
-router.get('/:id', genreController.getGenreById);
+router.get('/:id', [
+  validateObjectId, 
+  genreController.getGenreById
+]);
 
-router.post('/', auth, genreController.createGenre);
+router.post('/', [
+  auth, 
+  genreController.createGenre
+]);
 
-router.put('/:id', genreController.updateGenre);
+router.put('/:id', [
+  validateObjectId, 
+  genreController.updateGenre
+]);
 
-router.delete('/:id', [auth, admin], genreController.deleteGenre);
+router.delete('/:id', [
+  validateObjectId,
+  auth, 
+  admin, 
+  genreController.deleteGenre
+]);
 
 module.exports = router;

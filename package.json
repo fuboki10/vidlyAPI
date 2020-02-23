@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "./src/server.js",
+  "jest": {
+    "testEnvironment": "node"
+  },
   "scripts": {
     "test": "env NODE_ENV=test jest --watchAll --verbose",
     "start": "nodemon ./src/server.js",
