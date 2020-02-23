@@ -7,7 +7,7 @@
     "testEnvironment": "node"
   },
   "scripts": {
-    "test": "env NODE_ENV=test jest --watchAll --verbose",
+    "test": "env NODE_ENV=test jest --watchAll --verbose --coverage --maxWorkers=1",
     "start": "nodemon ./src/server.js",
     "dev": "env NODE_ENV=development nodemon ./src/server.js"
   },
